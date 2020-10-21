@@ -17,51 +17,33 @@
 #-------------------------------------------------------------------------------------------#
 library("utils")
 library("miniCRAN")
+library("argparse")
 
-args <- commandArgs(trailingOnly = TRUE)
+p <- ArgumentParser(description = "Add package to miniCRAN repo")
+p$add_argument("--pkgs", nargs="+" , help = "Name of packages to add to the repo")
+p$add_argument("--repo", help = "Location of your miniCRAN repo")
+args <- p$parse_args(commandArgs(trailingOnly=TRUE))
 
-if ("--pkgs" %in% args) {
-
-    if ("--repo" %in% args) {
-        repo_command_index <- match("--repo",args)
-        repo_file_url <- args[repo_command_index + 1]
-    } else {
-        stop("Please use the --repo argument to provide the path to the repo")
+checkArgs = function(args_list) {
+    if (length(args_list$pkgs) == 0) {
+        stop("Please provide a list of packages using '--pkgs'.")
+    } else if (length(args_list$repo) == 0) {
+        stop("Please provide a repo location using '--repo'.")
     }
+}
 
-
-    pkgs_command_index <- match("--pkgs",args)
-
-    if (pkgs_command_index < repo_command_index) {
-        pkgsToAdd <- args[(pkgs_command_index+1) : (repo_command_index-1)]
-    } else {
-        pkgsToAdd <- args[(pkgs_command_index+1) : length(args)]
-    }
-
-    print(paste0("Adding packages to repo: ", repo_file_url))
-    for (i in pkgsToAdd) {
+loadPackages <- function(args_list){
+    print(paste0("Adding packages to repo: ", args_list$repo))
+    for (i in args_list$pkgs) {
         print(paste0("Adding ", i, " ..."))
-        addPackage(pkgsToAdd,
-            path = repo_file_url,
+        addPackage(args$pkgs,
+            path = args$repo,
             repos = 'https://cloud.r-project.org/',
             type = c("win.binary"))
     }
 
     print("All packages -- and their dependencies -- successfully added.")
-
-} else {
-
-    stop("Something went wrong. Make sure to use --pkgs to define which packages
-        you would like installed and follow it with --repo.")
-
 }
 
-
-if ("--help" %in% args) {
-
-    print("Use --pkgs followed by the packages you want to install. And use --repo to define the repo location.")
-
-}
-
-
-
+checkArgs(args)
+loadPackages(args)
