@@ -1,19 +1,6 @@
 #!/usr/bin/env Rscript
 # Author: Landon Gibson
 # Date: 10/20/2020
-#
-# Purpose:
-#   This script adds packages to an EXISTING miniCRAN repo on the local machine. That means
-#   that a miniCRAN repo should have already been configured at a given location. Then this
-#   script can be used to add additional packages into the repo.
-#
-# Commands:
-#   --help: gives you information on how to use the script.
-#   --pkgs: Tells the script what packages you would like to install. Is used like the
-#           following example: script --pkgs pkg1 pkg2 pkg3. Any number of packages can be
-#           defined and they will be installed to your repo along with their dependencies
-#           and imports
-#   --repo: Gives the location of the local miniCRAN repo.
 #-------------------------------------------------------------------------------------------#
 library("utils")
 library("miniCRAN")
