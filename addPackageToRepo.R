@@ -30,7 +30,7 @@ createRepo <- function(args_list) {
     makeRepo(pkgs_expanded,
         path = args_list$repo,
         repos = CRAN_mirror,
-        type = "win.binary",
+        type = "source",
         Rversion = args_list$rversion)
     print("All packages -- and their dependencies -- successfully added.")
 }
@@ -43,7 +43,7 @@ loadPackages <- function(args_list){
         addPackage(args$pkgs,
             path = args$repo,
             repos = CRAN_mirror,
-            type = c("win.binary"))
+            type = c("source"))
     }
     print("All packages -- and their dependencies -- successfully added.")
 }
