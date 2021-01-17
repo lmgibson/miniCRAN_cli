@@ -8,6 +8,10 @@ and it can add packages to an existing local repo. Requires that miniCRAN and ar
 I built this because my work servers are offline which means I need to build my repository on my own machine and
 transfer to the work machine so I can install and manage my libraries.
 
+A current limitation of the tool is that it will build a repository using windows binaries. This is due to
+my own requirements, but a future iteration will give the user the ability to select which type they want:
+windows, mac, or source.
+
 ## Installation
 
 1. Add the "minicran" file to your /usr/local/bin/ folder.
